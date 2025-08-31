@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\DavesPortfolio.Client\Pages\Counter.razor.cs" Link="Counter.razor.cs" />
+    <Compile Include="..\DavesPortfolio.Client\Pages\Weather.razor.cs" Link="Weather.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DavesPortfolio.Client\DavesPortfolio.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.8" />
