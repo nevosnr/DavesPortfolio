@@ -6,4 +6,20 @@
 
 <MudText Color="Color.Error" Typo="Typo.h3">WSSR USE ONLY</MudText>
 
+<MudPaper>
+	<MudGrid>
+		<MudItem>
+			<MudDataGrid Items="@loadout" Filterable="true" SortMode="@SortMode.None" Groupable="false">
+				<Columns>
+					<PropertyColumn Property="x => x.name" />
+					<PropertyColumn Property="x => x.position" />
+				</Columns>
+			</MudDataGrid>
+		</MudItem>
+		<MudItem>
+			<MudImage Src="images/TyTop.png"/>
+		</MudItem>
+	</MudGrid>
+</MudPaper>
+
 
