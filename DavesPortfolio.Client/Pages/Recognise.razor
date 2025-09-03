@@ -1,0 +1,97 @@
+﻿@page "/recognise"
+
+<PageTitle>Aircraft Recce</PageTitle>
+
+<MudText Class="pa-10" Typo="Typo.h3" GutterBottom="true" Align="Align.Center"><strong>Aircraft Recognition Quiz</strong></MudText>
+
+
+
+<MudPaper Class="pa-2">
+	<MudGrid Class="justify-center">
+		<MudItem>
+			<MudGrid Class="d-flex flex-column flex-grow-1">
+				<MudItem Class="ma-2">
+					<MudPaper Width="80%">
+						<MudText Align="Align.Center" Typo="Typo.body1">
+							This is a simple aircraft recognition quiz that I had originally created as part of a coding exercise to demonstrate basic HTML, CSS and JS knoweldge.
+							For those that are able you can
+							check out the JHub Scheme through defence ideas - this was Module 1a. if you would like to see the 
+							original work it can be seen <MudElement HtmlTag="a"
+															Style="color:rebeccapurple;font-weight:bold;" 
+															href="https://codepen.io/nevosnr/pen/bGOQNEL"
+															target="blank">Here</MudElement>
+						</MudText>
+					</MudPaper>
+				</MudItem>
+				<MudGrid Class="ma-2 d-flex flex-row flex-grow-1 align-center">
+					<MudItem xs="3" sm="3">
+						<MudImage Src="https://upload.wikimedia.org/wikipedia/commons/2/23/RAF_Tornado_GR4_MOD_45155235.jpg"
+								  Alt="An Aircraft that you have to guess"
+								  Height="150" Elevation="25" Class="rounded-lg ma-4" />
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">Thunderbird 1</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium" OnClick="AddResult">Panavia Tornado GR4</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">FA18 Super Hornet</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">F14 Tomcat</MudButton>
+					</MudItem>
+				</MudGrid>		
+				<MudGrid Class="ma-2 d-flex flex-row flex-grow-1 align-center">
+					<MudItem xs="3" sm="3">
+						<MudImage Src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Royal_Air_Force_Eurofighter_EF-2000_Typhoon_F2_Lofting-1.jpg/800px-Royal_Air_Force_Eurofighter_EF-2000_Typhoon_F2_Lofting-1.jpg?20120819075925"
+								  Alt="An Aircraft that you have to guess"
+								  Height="150" Elevation="25" Class="rounded-lg ma-4" />
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">Supermarine Spitfire</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">EE Lightning</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium" OnClick="AddResult">Eurofighter Typhoon</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">F35-B Lightning</MudButton>
+					</MudItem>
+				</MudGrid>
+				<MudGrid Class="ma-2 d-flex flex-row flex-grow-1 align-center">
+					<MudItem xs="3" sm="3">
+						<MudImage Src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Avro_679_Manchester_B_Mk._IA_CCCR.jpg/640px-Avro_679_Manchester_B_Mk._IA_CCCR.jpg"
+								  Alt="An Aircraft that you have to guess"
+								  Height="150" Elevation="25" Class="rounded-lg ma-4" />
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">Avro Lancaster</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">Boeing B-17</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium" OnClick="AddResult">Avro Manchester</MudButton>
+					</MudItem>
+					<MudItem xs="3" sm="2">
+						<MudButton Style="height:60px;width:150px" FullWidth="true" Variant="Variant.Outlined" Size="Size.Medium">Avro Vulcan</MudButton>
+					</MudItem>
+				</MudGrid>
+			</MudGrid>
+		</MudItem>
+		<MudItem>
+			<MudPaper Class="pa-2">
+				<MudButton Class="pa-2" Variant="Variant.Filled" OnClick="CallResult">Check Results</MudButton>
+				<MudButton Class="pa-2" Variant="Variant.Filled" OnClick="ResetResult">Reset</MudButton>
+				<MudText Align="Align.Center" Class="pa-2" Typo="Typo.h5">Your results is:</MudText>
+				<MudText Align="Align.Center" Class="pa-2" Typo="Typo.h5">@calledResult</MudText>
+			</MudPaper>
+		</MudItem>
+	</MudGrid>
+</MudPaper>
+
+
+				
