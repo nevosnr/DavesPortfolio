@@ -6,20 +6,26 @@
 
 <MudText Color="Color.Error" Typo="Typo.h3">WSSR USE ONLY</MudText>
 
-<MudPaper>
-	<MudGrid>
-		<MudItem>
-			<MudDataGrid Items="@loadout" Filterable="true" SortMode="@SortMode.None" Groupable="false">
-				<Columns>
-					<PropertyColumn Property="x => x.name" />
-					<PropertyColumn Property="x => x.position" />
-				</Columns>
-			</MudDataGrid>
-		</MudItem>
-		<MudItem>
-			<MudImage Src="images/TyTop.png"/>
-		</MudItem>
-	</MudGrid>
-</MudPaper>
+<MudContainer >
+	<MudPaper Class="pa-4 d-flex">
+		<MudImage ObjectPosition="ObjectPosition.Left" Src="images/TyTop.png" />
+
+		<MudImage ObjectPosition="ObjectPosition.Right" Src="images/TyTop.png" />
+	</MudPaper>
+</MudContainer>
 
 
+@* <MudItem>
+	<MudDataGrid Items="@loadout" Filterable="true" SortMode="@SortMode.None" Groupable="false">
+		<Columns>
+			<PropertyColumn Property="x => x.name" />
+			<PropertyColumn Property="x => x.position" />
+		</Columns>
+	</MudDataGrid>
+</MudItem> *@
+
+@* <MudItem>
+	<MudPaper>
+		<MudImage Width="500" ObjectPosition="ObjectPosition.Right" Src="images/TyTop.png" />
+	</MudPaper>
+</MudItem> *@
