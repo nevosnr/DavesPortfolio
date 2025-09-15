@@ -24,5 +24,9 @@ namespace DavesPortfolio.Client.Services
         {
             return await _http.GetFromJsonAsync<List<Polforceloc>>("forces");
         }
+        public async Task<List<CrimeCategories>> GetCategoriesAsync()
+        {
+            return await _http.GetFromJsonAsync<List<CrimeCategories>>("crime-categories");
+        }
     }
 }

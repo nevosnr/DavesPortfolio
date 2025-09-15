@@ -29,7 +29,17 @@
 	<MudItem xs="12" md="4">
 		<MudPaper Elevation="2">
 			<MudText>Details</MudText>
-
+			<MudSelect T="string"
+				Label="Select a Crime Category"
+				Variant="Variant.Outlined"
+				Class="ma-4"
+				Dense="true"
+				@bind-Value="_selectedCategory">
+				@foreach(var category in _crimeCategories)
+				{
+					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>
+				}
+				</MudSelect>
 		</MudPaper>
 	</MudItem>
 	<MudItem xs="12" md="8">
