@@ -18,11 +18,23 @@
 					   Variant="Variant.Outlined"
 					   Class="ma-4"
 					   Dense="true"
-					   @bind-Value="_selectedForce">
+					   @bind-Value="SelectedForce">
 				@foreach (var force in _policeForces)
 				{
 					<MudSelectItem T="string" Value="@force.id">@force.name</MudSelectItem>
 				}
+			</MudSelect>
+			<MudSelect
+				T="string"
+				Label="Select Force Neighbourhood"
+				Variant="Variant.Outlined"
+				Class="ma-4"
+				Dense="true"
+				@bind-Value="_selectedNeighbourhood">
+				@foreach (var nhood in _neighbourhoods)
+				{
+					<MudSelectItem T="string" Value="@nhood.id">@nhood.name</MudSelectItem>
+                }
 			</MudSelect>
 		</MudPaper>
 	</MudItem>

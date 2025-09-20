@@ -28,5 +28,11 @@ namespace DavesPortfolio.Client.Services
         {
             return await _http.GetFromJsonAsync<List<CrimeCategories>>("crime-categories");
         }
+
+        public async Task<List<Neighbourhood>> GetNeighbourhoodsAsync(string forceId)
+        {
+            var url = $"{forceId}/neighbourhoods";
+            return await _http.GetFromJsonAsync<List<Neighbourhood>>(url);
+        }
     }
 }
