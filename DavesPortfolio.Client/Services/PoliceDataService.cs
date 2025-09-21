@@ -9,9 +9,9 @@ namespace DavesPortfolio.Client.Services
     {
         private readonly HttpClient _http;
 
-        public PoliceDataService(IHttpClientFactory factory)
+        public PoliceDataService(HttpClient http)
         {
-            _http = factory.CreateClient("PoliceAPI");
+            _http = http;
         }
 
         public async Task<List<CrimeRecord>> GetCrimesAsync(double lat, double lng)

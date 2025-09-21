@@ -22,9 +22,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-builder.Services.AddScoped<PoliceDataService>();
 
-builder.Services.AddHttpClient("PoliceAPI", client =>
+builder.Services.AddHttpClient<PoliceDataService>( client =>
 {
     client.BaseAddress = new Uri("https://data.police.uk/api/");
 });
