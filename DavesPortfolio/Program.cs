@@ -23,10 +23,16 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
-builder.Services.AddHttpClient<PoliceDataService>( client =>
+//builder.Services.AddHttpClient<PoliceDataService>( client =>
+//{
+//    client.BaseAddress = new Uri("https://data.police.uk/api/");
+//});
+
+builder.Services.AddScoped(sp => new HttpClient
 {
-    client.BaseAddress = new Uri("https://data.police.uk/api/");
+    BaseAddress = new Uri("https://data.police.uk/api/")
 });
+builder.Services.AddScoped<PoliceDataService>();
 
 builder.Services.AddAuthentication(options =>
     {

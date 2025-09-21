@@ -4,7 +4,7 @@ using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-builder.Services.AddScoped(sp => new HttpClient(sp.GetRequiredService<HttpMessageHandler>())
+builder.Services.AddScoped(sp => new HttpClient
 {
     BaseAddress = new Uri("https://data.police.uk/api/")
 });

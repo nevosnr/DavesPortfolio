@@ -15,7 +15,7 @@ namespace DavesPortfolio.Client.Components
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender && JS != null)
+            if (firstRender && OperatingSystem.IsBrowser())
             {
                 await JS.InvokeVoidAsync("initMap", mapId, Lat, Lng, Zoom);
             }

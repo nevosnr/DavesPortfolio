@@ -1,6 +1,7 @@
 using DavesPortfolio.Client.DTOs;
 using DavesPortfolio.Client.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace DavesPortfolio.Client.Pages
 {
@@ -9,9 +10,13 @@ namespace DavesPortfolio.Client.Pages
         string _selectedForce;
         string _selectedCategory;
         string _selectedNeighbourhood;
+        bool _isHydrated = false;
         List<Polforceloc> _policeForces = new();
         List<CrimeCategories> _crimeCategories = new();
         List<Neighbourhood> _neighbourhoods = new();
+        List<Latlng> _boundary = new();
+        [Inject] PoliceDataService PoliceDataService { get; set; }
+        [Inject] IJSRuntime JS { get; set; }
         private string SelectedForce
         {
             get => _selectedForce;
@@ -25,12 +30,42 @@ namespace DavesPortfolio.Client.Pages
             }
         }
 
-        [Inject] PoliceDataService PoliceDataService { get; set; }
+        private string SelectedNeighbourhood
+        {
+            get => _selectedNeighbourhood;
+            set
+            {
+                if (_selectedNeighbourhood != value)
+                {
+                    _selectedNeighbourhood = value;
+                    _ = OnNeighbourhoodChanged(_selectedForce, value);
+                }
+            }
+        }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender && OperatingSystem.IsBrowser())
+            {
+                _isHydrated = true;
+                StateHasChanged(); // Trigger a re-render after hydration
+            }
+        }
         protected override async Task OnInitializedAsync()
         {
+            if (!OperatingSystem.IsBrowser()) return;
             _policeForces = await PoliceDataService.GetForcesAsync();
             _crimeCategories = await PoliceDataService.GetCategoriesAsync();
+
+            if (!string.IsNullOrWhiteSpace(_selectedForce))
+            {
+                _neighbourhoods = await PoliceDataService.GetNeighbourhoodsAsync(_selectedForce);
+                if (!string.IsNullOrWhiteSpace(_selectedNeighbourhood))
+                {
+                    _boundary = await PoliceDataService.GetBoundryAsync(_selectedForce, _selectedNeighbourhood);
+                    await JS.InvokeVoidAsync("drawBoundry", "map-id", _boundary);
+                }
+            }
         }
 
         private async Task OnForceChanged(string forceId)
@@ -38,6 +73,15 @@ namespace DavesPortfolio.Client.Pages
             _selectedForce = forceId;
             _neighbourhoods = await PoliceDataService.GetNeighbourhoodsAsync(forceId);
             _selectedNeighbourhood = null; // Reset selected neighbourhood
+        }
+
+        private async Task OnNeighbourhoodChanged(string forceId, string nHoodId)
+        {
+            if (!string.IsNullOrWhiteSpace(nHoodId))
+            {
+                _boundary = await PoliceDataService.GetBoundryAsync(forceId, nHoodId);
+                await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
+            }
         }
 
     }

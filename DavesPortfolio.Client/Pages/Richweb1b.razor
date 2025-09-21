@@ -1,5 +1,6 @@
 ﻿@page "/richweb"
 @using DavesPortfolio.Client.Components
+@rendermode InteractiveWebAssembly
 
 <PageTitle>Module 1b - Rich Web API</PageTitle>
 
@@ -29,18 +30,20 @@
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" md="6">
+					@if(_isHydrated){
 					<MudSelect
 						T="string"
 						Label="Select Force Neighbourhood"
 						Variant="Variant.Outlined"
 						Class="ma-4"
 						Dense="true"
-						@bind-Value="_selectedNeighbourhood">
+						@bind-Value="SelectedNeighbourhood">
 						@foreach (var nhood in _neighbourhoods)
 						{
 							<MudSelectItem T="string" Value="@nhood.id">@nhood.name</MudSelectItem>
 						}
 					</MudSelect>
+					}
 				</MudItem>
 			</MudGrid>
 		</MudPaper>
@@ -64,7 +67,7 @@
 	<MudItem xs="8" md="9">
 		<MudPaper Elevation="2">
 			<MudText>Map Area</MudText>
-			<Mappingbase/>
+			<Mappingbase mapId="mapId" Lat="53.234" Lng="-0.538" Zoom="13"/>
 		</MudPaper>
 	</MudItem>
 </MudGrid>

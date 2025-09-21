@@ -34,5 +34,11 @@ namespace DavesPortfolio.Client.Services
             var url = $"{forceId}/neighbourhoods";
             return await _http.GetFromJsonAsync<List<Neighbourhood>>(url);
         }
+
+        public async Task<List<Latlng>> GetBoundryAsync(string forceId, string nHoodId)
+        {
+            var url = $"{forceId}/{nHoodId}/boundary";
+            return await _http.GetFromJsonAsync<List<Latlng>>(url);
+        }
     }
 }
