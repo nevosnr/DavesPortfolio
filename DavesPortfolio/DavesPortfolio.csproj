@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DavesPortfolio.Client\DavesPortfolio.Client.csproj" />
-    <PackageReference Include="LeafletForBlazor" Version="2.2.8.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.9" />
