@@ -56,7 +56,7 @@
 				Variant="Variant.Outlined"
 				Class="ma-4"
 				Dense="true"
-				@bind-Value="_selectedCategory">
+				@bind-Value="SelectedCrime">
 				@foreach(var category in _crimeCategories)
 				{
 					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>

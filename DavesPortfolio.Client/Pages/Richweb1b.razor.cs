@@ -43,6 +43,19 @@ namespace DavesPortfolio.Client.Pages
             }
         }
 
+        private string SelectedCrime
+        {
+            get => _selectedCategory;
+            set
+            {
+                if (_selectedCategory != value)
+                {
+                    _selectedCategory = value;
+                    _ = OnCatChange(_selectedCategory);
+                }
+            }
+        }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender && OperatingSystem.IsBrowser())
@@ -81,6 +94,19 @@ namespace DavesPortfolio.Client.Pages
             {
                 _boundary = await PoliceDataService.GetBoundryAsync(forceId, nHoodId);
                 await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
+            }
+        }
+
+        private async Task OnCatChange(string category)
+        {
+            _selectedCategory = category;
+            if (_boundary != null && _boundary.Count > 0)
+            {
+                var lat = _boundary[0].latitude;
+                var lng = _boundary[0].longitude;
+                var crimes = await PoliceDataService.GetCrimesAsync(lat, lng);
+                var filteredCrimes = crimes.Where(c => c.category == category).ToList();
+                await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
             }
         }
 

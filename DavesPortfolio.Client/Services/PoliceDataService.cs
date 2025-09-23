@@ -14,7 +14,7 @@ namespace DavesPortfolio.Client.Services
             _http = http;
         }
 
-        public async Task<List<CrimeRecord>> GetCrimesAsync(double lat, double lng)
+        public async Task<List<CrimeRecord>> GetCrimesAsync(string lat, string lng)
         {
             var url = $"crimes-street/all-crime?lat={lat}&lng={lng}";
             return await _http.GetFromJsonAsync<List<CrimeRecord>>(url);

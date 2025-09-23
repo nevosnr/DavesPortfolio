@@ -1,5 +1,6 @@
 ﻿let leafletMaps = {};
 let currentBoundaries = {};
+let currentMarkers = {};
 
 window.initMap = (mapId, latitude, longitude, zoom) => {
     const map = L.map(mapId).setView([latitude, longitude], zoom);
@@ -27,5 +28,25 @@ window.drawBoundry = (mapId, coordinates) => {
 
     currentBoundaries[mapId] = polygon;
     map.fitBounds(polygon.getBounds());
-    console.log("Drawing boundry with", latlngs.length, "points");
+};
+
+window.addMarker = (mapId, crimes) => {
+    const map = leafletMaps[mapId];
+    if (!map || !Array.isArray(crimes)) return;
+
+    if (currentMarkers[mapId]) {
+        currentMarkers[mapId].forEach(marker => map.removeLayer(marker));
+    }
+
+    const markers = crimes.map(crime => {
+        const marker = L.marker([crime.location.latitude, crime.location.longitude])
+            .on("click", () => {
+                DotNet.invokeMethodAsync("DavesPortfolio.Client", "OnMarkerClick", crime.id);
+            });
+
+        marker.addTo(map);
+        return marker;
+    });
+
+    currentMarkers[mapId] = markers;
 };
