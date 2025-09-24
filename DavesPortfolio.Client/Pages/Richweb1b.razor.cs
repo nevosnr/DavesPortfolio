@@ -51,7 +51,7 @@ namespace DavesPortfolio.Client.Pages
                 if (_selectedCategory != value)
                 {
                     _selectedCategory = value;
-                    _ = OnCatChange(_selectedCategory);
+                    _ = OnCatChange(value);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace DavesPortfolio.Client.Pages
                 if (!string.IsNullOrWhiteSpace(_selectedNeighbourhood))
                 {
                     _boundary = await PoliceDataService.GetBoundryAsync(_selectedForce, _selectedNeighbourhood);
-                    await JS.InvokeVoidAsync("drawBoundry", "map-id", _boundary);
+                    await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
                 }
             }
         }
@@ -99,15 +99,23 @@ namespace DavesPortfolio.Client.Pages
 
         private async Task OnCatChange(string category)
         {
+            Console.WriteLine("I'm getting here!");
             _selectedCategory = category;
             if (_boundary != null && _boundary.Count > 0)
             {
+                Console.WriteLine("I'm getting here too!");
                 var lat = _boundary[0].latitude;
                 var lng = _boundary[0].longitude;
                 var crimes = await PoliceDataService.GetCrimesAsync(lat, lng);
                 var filteredCrimes = crimes.Where(c => c.category == category).ToList();
                 await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
             }
+        }
+
+        [JSInvokable("OnMarkerClick")]
+        public static Task OnMarkerClick(string crimeId)
+        {
+            return Task.CompletedTask;
         }
 
     }

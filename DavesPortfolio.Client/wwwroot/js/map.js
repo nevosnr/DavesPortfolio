@@ -31,6 +31,7 @@ window.drawBoundry = (mapId, coordinates) => {
 };
 
 window.addMarker = (mapId, crimes) => {
+    console.log("addMarker is called");
     const map = leafletMaps[mapId];
     if (!map || !Array.isArray(crimes)) return;
 
@@ -43,6 +44,7 @@ window.addMarker = (mapId, crimes) => {
             .on("click", () => {
                 DotNet.invokeMethodAsync("DavesPortfolio.Client", "OnMarkerClick", crime.id);
             });
+        console.log("addMarker called with", crimes.length, "crimes");
 
         marker.addTo(map);
         return marker;
