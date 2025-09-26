@@ -99,14 +99,10 @@ namespace DavesPortfolio.Client.Pages
 
         private async Task OnCatChange(string category)
         {
-            Console.WriteLine("I'm getting here!");
             _selectedCategory = category;
             if (_boundary != null && _boundary.Count > 0)
             {
-                Console.WriteLine("I'm getting here too!");
-                var lat = _boundary[0].latitude;
-                var lng = _boundary[0].longitude;
-                var crimes = await PoliceDataService.GetCrimesAsync(lat, lng);
+                var crimes = await PoliceDataService.GetCrimesByBoundry(_boundary);
                 var filteredCrimes = crimes.Where(c => c.category == category).ToList();
                 await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
             }
