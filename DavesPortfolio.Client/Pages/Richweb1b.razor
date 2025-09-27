@@ -6,8 +6,9 @@
 
 <MudText Class="pa-10" Typo="Typo.h3" GutterBottom="true" Align="Align.Center"><strong>UK Police API Interrogation</strong></MudText>
 <MudPaper Class="pa-5 align-content-center" >
-	<MudText>This rich web application/page demonstrates the use of external REST API calls to an unclassified API provider - UK Police.
-		It can be used to retrieve relevant information across the UK police forces.
+	<MudText>This rich web application/page demonstrates the use of external API calls to an unclassified API provider - UK Police.
+		It can be used to retrieve relevant information across the UK police forces. using C# stack with MudBlazor UI component library to 
+		create a responsive and user-friendly interface.
 	</MudText>
 </MudPaper>
 
@@ -48,6 +49,11 @@
 			</MudGrid>
 		</MudPaper>
 	</MudItem>
+	<MudItem xs="12" md="12">
+		<MudPaper Elevation="2">
+			<Mappingbase mapId="mapId" Lat="53.234" Lng="-0.538" Zoom="13"/>
+		</MudPaper>
+	</MudItem>
 	<MudItem xs="4" md="3">
 		<MudPaper Elevation="2">
 			<MudText Class="pa-4">Details</MudText>
@@ -56,7 +62,7 @@
 				Variant="Variant.Outlined"
 				Class="ma-4"
 				Dense="true"
-				@bind-Value="SelectedCrime">
+				@bind-Value="_selectedCategory">
 				@foreach(var category in _crimeCategories)
 				{
 					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>
@@ -64,10 +70,9 @@
 				</MudSelect>
 		</MudPaper>
 	</MudItem>
-	<MudItem xs="8" md="9">
-		<MudPaper Elevation="2">
-			<MudText>Map Area</MudText>
-			<Mappingbase mapId="mapId" Lat="53.234" Lng="-0.538" Zoom="13"/>
+	<MudItem>
+		<MudPaper>
+			 
 		</MudPaper>
 	</MudItem>
 </MudGrid>

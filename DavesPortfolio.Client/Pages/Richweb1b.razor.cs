@@ -43,25 +43,25 @@ namespace DavesPortfolio.Client.Pages
             }
         }
 
-        private string SelectedCrime
-        {
-            get => _selectedCategory;
-            set
-            {
-                if (_selectedCategory != value)
-                {
-                    _selectedCategory = value;
-                    _ = OnCatChange(value);
-                }
-            }
-        }
+        //private string SelectedCrime
+        //{
+        //    get => _selectedCategory;
+        //    set
+        //    {
+        //        if (_selectedCategory != value)
+        //        {
+        //            _selectedCategory = value;
+        //            _ = OnCatChange(value);
+        //        }
+        //    }
+        //}
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender && OperatingSystem.IsBrowser())
             {
                 _isHydrated = true;
-                StateHasChanged(); // Trigger a re-render after hydration
+                StateHasChanged();
             }
         }
         protected override async Task OnInitializedAsync()
@@ -97,22 +97,22 @@ namespace DavesPortfolio.Client.Pages
             }
         }
 
-        private async Task OnCatChange(string category)
-        {
-            _selectedCategory = category;
-            if (_boundary != null && _boundary.Count > 0)
-            {
-                var crimes = await PoliceDataService.GetCrimesByBoundry(_boundary);
-                var filteredCrimes = crimes.Where(c => c.category == category).ToList();
-                await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
-            }
-        }
+        //private async Task OnCatChange(string category)
+        //{
+        //    _selectedCategory = category;
+        //    if (_boundary != null && _boundary.Count > 0)
+        //    {
+        //        var crimes = await PoliceDataService.GetCrimesByBoundry(_boundary);
+        //        var filteredCrimes = crimes.Where(c => c.category == category).ToList();
+        //        await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
+        //    }
+        //}
 
-        [JSInvokable("OnMarkerClick")]
-        public static Task OnMarkerClick(string crimeId)
-        {
-            return Task.CompletedTask;
-        }
+        //[JSInvokable("OnMarkerClick")]
+        //public static Task OnMarkerClick(string crimeId)
+        //{
+        //    return Task.CompletedTask;
+        //}
 
     }
 }

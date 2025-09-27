@@ -30,25 +30,25 @@ window.drawBoundry = (mapId, coordinates) => {
     map.fitBounds(polygon.getBounds());
 };
 
-window.addMarker = (mapId, crimes) => {
-    console.log("addMarker is called");
-    const map = leafletMaps[mapId];
-    if (!map || !Array.isArray(crimes)) return;
+//window.addMarker = (mapId, crimes) => {
+//    console.log("addMarker is called");
+//    const map = leafletMaps[mapId];
+//    if (!map || !Array.isArray(crimes)) return;
 
-    if (currentMarkers[mapId]) {
-        currentMarkers[mapId].forEach(marker => map.removeLayer(marker));
-    }
+//    if (currentMarkers[mapId]) {
+//        currentMarkers[mapId].forEach(marker => map.removeLayer(marker));
+//    }
 
-    const markers = crimes.map(crime => {
-        const marker = L.marker([crime.location.latitude, crime.location.longitude])
-            .on("click", () => {
-                DotNet.invokeMethodAsync("DavesPortfolio.Client", "OnMarkerClick", crime.id);
-            });
-        console.log("addMarker called with", crimes.length, "crimes");
+//    const markers = crimes.map(crime => {
+//        const marker = L.marker([crime.location.latitude, crime.location.longitude])
+//            .on("click", () => {
+//                DotNet.invokeMethodAsync("DavesPortfolio.Client", "OnMarkerClick", crime.id);
+//            });
+//        console.log("addMarker called with", crimes.length, "crimes");
 
-        marker.addTo(map);
-        return marker;
-    });
+//        marker.addTo(map);
+//        return marker;
+//    });
 
-    currentMarkers[mapId] = markers;
-};
+//    currentMarkers[mapId] = markers;
+//};
