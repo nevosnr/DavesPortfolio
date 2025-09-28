@@ -62,7 +62,7 @@
 				Variant="Variant.Outlined"
 				Class="ma-4"
 				Dense="true"
-				@bind-Value="_selectedCategory">
+					   @bind-Value="_selectedCategory">
 				@foreach(var category in _crimeCategories)
 				{
 					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>
@@ -72,7 +72,27 @@
 	</MudItem>
 	<MudItem>
 		<MudPaper>
-			 
+			@if (_crimes?.Any() == true)
+			{
+				<MudTable Items="_crimes" Elevation="2" Class="ma-4">
+					<HeaderContent>
+						<MudTh>Category</MudTh>
+						<MudTh>Location</MudTh>
+						<MudTh>Outcome</MudTh>
+						<MudTh>Date</MudTh>
+					</HeaderContent>
+					<RowTemplate>
+						<MudTd DataLabel="Category">@context.category</MudTd>
+						<MudTd DataLabel="Location">@context.location</MudTd>
+						<MudTd DataLabel="Outcome">@context.outcome_status</MudTd>
+						<MudTd DataLabel="Date">@context.month</MudTd>
+					</RowTemplate>
+				</MudTable>		
+			}
+			else
+			{
+				<MudText Class="pa-4">No Crimes to Display</MudText>
+			}
 		</MudPaper>
 	</MudItem>
 </MudGrid>

@@ -48,11 +48,14 @@ namespace DavesPortfolio.Client.Services
             return await client.GetFromJsonAsync<List<Latlng>>(url);
         }
 
-        public async Task<List<CrimeRecord>> GetCrimesByBoundry(List<Latlng> boundary)
+        public async Task<List<CrimeRecord>> GetCrimesNoLocationAsync(string forceId, string category)
         {
-            var client = _clientFactory.CreateClient("LocalApi");
-            var bounds = string.Join(":", boundary.Select(b => $"{b.latitude},{b.longitude}"));
-            var url = $"api/crimes/by-boundary?poly={bounds}";
+            if (string.IsNullOrWhiteSpace(forceId))
+            {
+                return new List<CrimeRecord>();
+            }
+            var client = _clientFactory.CreateClient("PoliceApi");
+            var url = $"crimes-no-location?category={category}&force={forceId.Trim()}";
             return await client.GetFromJsonAsync<List<CrimeRecord>>(url);
         }
     }

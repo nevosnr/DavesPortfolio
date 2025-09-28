@@ -8,13 +8,14 @@ namespace DavesPortfolio.Client.Pages
     public partial class Richweb1B : ComponentBase
     {
         string _selectedForce;
-        string _selectedCategory;
+        string _selectedCategory  = "all-crime";
         string _selectedNeighbourhood;
         bool _isHydrated = false;
         List<Polforceloc> _policeForces = new();
         List<CrimeCategories> _crimeCategories = new();
         List<Neighbourhood> _neighbourhoods = new();
         List<Latlng> _boundary = new();
+        List<CrimeRecord> _crimes = new();
         [Inject] PoliceDataService PoliceDataService { get; set; }
         [Inject] IJSRuntime JS { get; set; }
         private string SelectedForce
@@ -78,14 +79,18 @@ namespace DavesPortfolio.Client.Pages
                     _boundary = await PoliceDataService.GetBoundryAsync(_selectedForce, _selectedNeighbourhood);
                     await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
                 }
+
+                await LoadCrimesWithoutLocation(_selectedForce, _selectedCategory);
             }
         }
 
         private async Task OnForceChanged(string forceId)
         {
+            _crimes.Clear();
             _selectedForce = forceId;
             _neighbourhoods = await PoliceDataService.GetNeighbourhoodsAsync(forceId);
             _selectedNeighbourhood = null; // Reset selected neighbourhood
+
         }
 
         private async Task OnNeighbourhoodChanged(string forceId, string nHoodId)
@@ -94,8 +99,18 @@ namespace DavesPortfolio.Client.Pages
             {
                 _boundary = await PoliceDataService.GetBoundryAsync(forceId, nHoodId);
                 await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
+                await LoadCrimesWithoutLocation(forceId, _selectedCategory);
             }
         }
+
+        private async Task LoadCrimesWithoutLocation(string forceId, string category)
+        {
+            if (!string.IsNullOrWhiteSpace(forceId))
+            {
+                _crimes = await PoliceDataService.GetCrimesNoLocationAsync(forceId, category);
+            }
+        }
+
 
         //private async Task OnCatChange(string category)
         //{
@@ -108,11 +123,11 @@ namespace DavesPortfolio.Client.Pages
         //    }
         //}
 
-        //[JSInvokable("OnMarkerClick")]
-        //public static Task OnMarkerClick(string crimeId)
-        //{
-        //    return Task.CompletedTask;
-        //}
+        [JSInvokable("OnMarkerClick")]
+        public static Task OnMarkerClick(string crimeId)
+        {
+            return Task.CompletedTask;
+        }
 
     }
 }
