@@ -1,4 +1,5 @@
 ﻿using DavesPortfolio.Client.DTOs;
+using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -50,13 +51,32 @@ namespace DavesPortfolio.Client.Services
 
         public async Task<List<CrimeRecord>> GetCrimesNoLocationAsync(string forceId, string category)
         {
+            Console.WriteLine($"Force : {forceId}, Category: {category}");
+
             if (string.IsNullOrWhiteSpace(forceId))
             {
                 return new List<CrimeRecord>();
             }
+
             var client = _clientFactory.CreateClient("PoliceApi");
-            var url = $"crimes-no-location?category={category}&force={forceId.Trim()}";
-            return await client.GetFromJsonAsync<List<CrimeRecord>>(url);
+            var url = $"crimes-no-location?category={category.Trim()}&force={forceId.Trim()}";
+
+            try
+            {
+                var response = await client.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Raw API response: {content}");
+
+                response.EnsureSuccessStatusCode();
+                var crimes = JsonSerializer.Deserialize<List<CrimeRecord>>(content);
+                Console.WriteLine($"Deserialized {crimes?.Count ?? 0} crimes");
+                return crimes ?? new List<CrimeRecord>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deserializing crimes: {ex.Message}");
+                return new List<CrimeRecord>();
+            }
         }
     }
 }

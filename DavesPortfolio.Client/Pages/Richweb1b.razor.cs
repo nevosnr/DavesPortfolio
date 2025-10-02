@@ -44,18 +44,20 @@ namespace DavesPortfolio.Client.Pages
             }
         }
 
-        //private string SelectedCrime
-        //{
-        //    get => _selectedCategory;
-        //    set
-        //    {
-        //        if (_selectedCategory != value)
-        //        {
-        //            _selectedCategory = value;
-        //            _ = OnCatChange(value);
-        //        }
-        //    }
-        //}
+        private string SelectedCatNoLoc
+        {
+            get => _selectedCategory; 
+            set 
+            {
+                Console.WriteLine($"Attempting to set category to: {value}");
+
+                if (_selectedCategory != value)
+                {
+                    _selectedCategory = value;
+                    _ = LoadCrimesWithoutLocation(_selectedForce, value);
+                }
+            }
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -79,8 +81,6 @@ namespace DavesPortfolio.Client.Pages
                     _boundary = await PoliceDataService.GetBoundryAsync(_selectedForce, _selectedNeighbourhood);
                     await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
                 }
-
-                await LoadCrimesWithoutLocation(_selectedForce, _selectedCategory);
             }
         }
 
@@ -89,8 +89,9 @@ namespace DavesPortfolio.Client.Pages
             _crimes.Clear();
             _selectedForce = forceId;
             _neighbourhoods = await PoliceDataService.GetNeighbourhoodsAsync(forceId);
-            _selectedNeighbourhood = null; // Reset selected neighbourhood
+            _selectedNeighbourhood = null;
 
+            await LoadCrimesWithoutLocation(forceId, _selectedCategory);
         }
 
         private async Task OnNeighbourhoodChanged(string forceId, string nHoodId)
@@ -99,29 +100,19 @@ namespace DavesPortfolio.Client.Pages
             {
                 _boundary = await PoliceDataService.GetBoundryAsync(forceId, nHoodId);
                 await JS.InvokeVoidAsync("drawBoundry", "mapId", _boundary);
-                await LoadCrimesWithoutLocation(forceId, _selectedCategory);
             }
         }
 
         private async Task LoadCrimesWithoutLocation(string forceId, string category)
         {
+            Console.WriteLine("Firing!");
             if (!string.IsNullOrWhiteSpace(forceId))
             {
-                _crimes = await PoliceDataService.GetCrimesNoLocationAsync(forceId, category);
+                _crimes = await PoliceDataService.GetCrimesNoLocationAsync(forceId.Trim(), category.Trim());
+                Console.WriteLine($"Crimes returned: {_crimes.Count}");
+                StateHasChanged();
             }
         }
-
-
-        //private async Task OnCatChange(string category)
-        //{
-        //    _selectedCategory = category;
-        //    if (_boundary != null && _boundary.Count > 0)
-        //    {
-        //        var crimes = await PoliceDataService.GetCrimesByBoundry(_boundary);
-        //        var filteredCrimes = crimes.Where(c => c.category == category).ToList();
-        //        await JS.InvokeVoidAsync("addMarker", "mapId", filteredCrimes);
-        //    }
-        //}
 
         [JSInvokable("OnMarkerClick")]
         public static Task OnMarkerClick(string crimeId)

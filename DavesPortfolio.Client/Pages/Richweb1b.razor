@@ -57,17 +57,19 @@
 	<MudItem xs="4" md="3">
 		<MudPaper Elevation="2">
 			<MudText Class="pa-4">Details</MudText>
+			@if(_isHydrated){
 			<MudSelect T="string"
 				Label="Select a Crime Category"
 				Variant="Variant.Outlined"
 				Class="ma-4"
 				Dense="true"
-					   @bind-Value="_selectedCategory">
+					   @bind-Value="SelectedCatNoLoc">
 				@foreach(var category in _crimeCategories)
 				{
 					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>
 				}
 				</MudSelect>
+				}
 		</MudPaper>
 	</MudItem>
 	<MudItem>
@@ -77,15 +79,14 @@
 				<MudTable Items="_crimes" Elevation="2" Class="ma-4">
 					<HeaderContent>
 						<MudTh>Category</MudTh>
-						<MudTh>Location</MudTh>
-						<MudTh>Outcome</MudTh>
 						<MudTh>Date</MudTh>
+						<MudTh>Outcome</MudTh>
 					</HeaderContent>
 					<RowTemplate>
 						<MudTd DataLabel="Category">@context.category</MudTd>
-						<MudTd DataLabel="Location">@context.location</MudTd>
-						<MudTd DataLabel="Outcome">@context.outcome_status</MudTd>
 						<MudTd DataLabel="Date">@context.month</MudTd>
+						<MudTd DataLabel="Outcome">@context.outcome_status?.category</MudTd>
+						
 					</RowTemplate>
 				</MudTable>		
 			}
