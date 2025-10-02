@@ -1,4 +1,5 @@
 using DavesPortfolio.Client.Pages;
+using DavesPortfolio.Client.Services;
 using DavesPortfolio.Components;
 using DavesPortfolio.Components.Account;
 using DavesPortfolio.Data;
@@ -21,6 +22,17 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
+builder.Services.AddHttpClient("PoliceApi", client =>
+{
+    client.BaseAddress = new Uri("https://data.police.uk/api/");
+});
+
+builder.Services.AddHttpClient("LocalApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7035/");
+});
+builder.Services.AddScoped<PoliceDataService>();
 
 builder.Services.AddAuthentication(options =>
     {

@@ -1,0 +1,99 @@
+﻿@page "/richweb"
+@using DavesPortfolio.Client.Components
+@rendermode InteractiveWebAssembly
+
+<PageTitle>Module 1b - Rich Web API</PageTitle>
+
+<MudText Class="pa-10" Typo="Typo.h3" GutterBottom="true" Align="Align.Center"><strong>UK Police API Interrogation</strong></MudText>
+<MudPaper Class="pa-5 align-content-center" >
+	<MudText>This rich web application/page demonstrates the use of external API calls to an unclassified API provider - UK Police.
+		It can be used to retrieve relevant information across the UK police forces. using C# stack with MudBlazor UI component library to 
+		create a responsive and user-friendly interface.
+	</MudText>
+</MudPaper>
+
+<MudGrid>
+	<MudItem xs="12" md="12">
+		<MudPaper Elevation="2">
+			<MudText Class="pa-4">Selection Bar</MudText>
+			<MudGrid>
+				<MudItem xs="12" md="6">
+					<MudSelect T="string"
+							   Label="Select a Police Force"
+							   Variant="Variant.Outlined"
+							   Class="ma-4"
+							   Dense="true"
+							   @bind-Value="SelectedForce">
+						@foreach (var force in _policeForces)
+						{
+							<MudSelectItem T="string" Value="@force.id">@force.name</MudSelectItem>
+						}
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" md="6">
+					@if(_isHydrated){
+					<MudSelect
+						T="string"
+						Label="Select Force Neighbourhood"
+						Variant="Variant.Outlined"
+						Class="ma-4"
+						Dense="true"
+						@bind-Value="SelectedNeighbourhood">
+						@foreach (var nhood in _neighbourhoods)
+						{
+							<MudSelectItem T="string" Value="@nhood.id">@nhood.name</MudSelectItem>
+						}
+					</MudSelect>
+					}
+				</MudItem>
+			</MudGrid>
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="12" md="12">
+		<MudPaper Elevation="2">
+			<Mappingbase mapId="mapId" Lat="53.234" Lng="-0.538" Zoom="13"/>
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="4" md="3">
+		<MudPaper Elevation="2">
+			<MudText Class="pa-4">Details</MudText>
+			@if(_isHydrated){
+			<MudSelect T="string"
+				Label="Select a Crime Category"
+				Variant="Variant.Outlined"
+				Class="ma-4"
+				Dense="true"
+					   @bind-Value="SelectedCatNoLoc">
+				@foreach(var category in _crimeCategories)
+				{
+					<MudSelectItem T="string" Value="@category.url">@category.name</MudSelectItem>
+				}
+				</MudSelect>
+				}
+		</MudPaper>
+	</MudItem>
+	<MudItem>
+		<MudPaper>
+			@if (_crimes?.Any() == true)
+			{
+				<MudTable Items="_crimes" Elevation="2" Class="ma-4">
+					<HeaderContent>
+						<MudTh>Category</MudTh>
+						<MudTh>Date</MudTh>
+						<MudTh>Outcome</MudTh>
+					</HeaderContent>
+					<RowTemplate>
+						<MudTd DataLabel="Category">@context.category</MudTd>
+						<MudTd DataLabel="Date">@context.month</MudTd>
+						<MudTd DataLabel="Outcome">@context.outcome_status?.category</MudTd>
+						
+					</RowTemplate>
+				</MudTable>		
+			}
+			else
+			{
+				<MudText Class="pa-4">No Crimes to Display</MudText>
+			}
+		</MudPaper>
+	</MudItem>
+</MudGrid>
