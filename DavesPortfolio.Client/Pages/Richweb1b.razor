@@ -76,7 +76,7 @@
 		<MudPaper>
 			@if (_crimes?.Any() == true)
 			{
-				<MudTable Items="_crimes" Elevation="2" Class="ma-4">
+				<MudTable Items="_crimes" Elevation="2" Class="ma-4" RowsPerPage="10" Bordered="true" Hover="true">
 					<HeaderContent>
 						<MudTh>Category</MudTh>
 						<MudTh>Date</MudTh>
@@ -85,9 +85,11 @@
 					<RowTemplate>
 						<MudTd DataLabel="Category">@context.category</MudTd>
 						<MudTd DataLabel="Date">@context.month</MudTd>
-						<MudTd DataLabel="Outcome">@context.outcome_status?.category</MudTd>
-						
+						<MudTd DataLabel="Outcome">@context.outcome_status?.category</MudTd>						
 					</RowTemplate>
+					<PagerContent>
+						<MudTablePager />
+					</PagerContent>
 				</MudTable>		
 			}
 			else
