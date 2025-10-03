@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace DavesPortfolio.Client.Pages
 {
-    public partial class Richweb1B : ComponentBase
+    public partial class Richweb1b : ComponentBase
     {
         string _selectedForce;
         string _selectedCategory  = "all-crime";
