@@ -2,56 +2,23 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Daves Portfolio</a>
-    </div>
-</div>
+<MudDrawer @bind-Open="@_isDrawerOpen">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6">Select an Option></MudText>
+    </MudDrawerHeader>
+    <MudPaper Width="250px" Elevation="1">
+        <MudNavMenu Color="Color.Primary">
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Girl">Python</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/about" Icon="@Icons.Material.Filled.DocumentScanner">David Neve - CV</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Gamepad">Video Game Development</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/recognise" Icon="@Icons.Material.Filled.AirplanemodeActive">JHub Module 1a - Basic Web</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/richweb" Icon="@Icons.Material.Filled.ListAlt">JHub Module 1b - Rich Web</MudNavLink>
+        </MudNavMenu>
+    </MudPaper>
+</MudDrawer>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Python
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> David Neve - CV
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Game Development
-            </NavLink>
-        </div>
-
-        <MudNavLink Class="px-2" Href="/recognise" Icon="@Icons.Material.Filled.AirplanemodeActive">JHub Module 1a - Basic Web</MudNavLink>
-        <MudNavLink Class="px-2" Href="/richweb" Icon="@Icons.Material.Filled.ListAlt">JHub Module 1b - Rich Web</MudNavLink>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="recognise">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Recognition Quiz
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="richweb">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Rich Web Application
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
+@*         <div class="nav-item px-3">
             <NavLink class="nav-link" href="auth">
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
             </NavLink>
@@ -86,12 +53,12 @@
                     </NavLink>
                 </div>
             </NotAuthorized>
-        </AuthorizeView>
-    </nav>
-</div>
+        </AuthorizeView> *@
 
 
 @code {
+
+    private bool _isDrawerOpen = true;
     private string? currentUrl;
 
     protected override void OnInitialized()
