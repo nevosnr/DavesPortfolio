@@ -1,24 +1,47 @@
 ﻿@inherits LayoutComponentBase
+
 <MudThemeProvider />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+<MudLayout>
+    <MudAppBar Color="Color.Primary" Elevation="4">
+		<MudIconButton Icon="@Icons.Material.Filled.Menu"
+				 Color="Color.Inherit"
+				 Edge="Edge.Start"
+                 OnClick="@ToggleDrawer" />
+        <MudText Typo="Typo.h6">Dave's Portfolio</MudText>
+	</MudAppBar>
+    <MudDrawer @bind-Open="@_isDrawerOpen"
+               ClipMode="DrawerClipMode.Always"
+               Width="250px"
+               Height="100%"
+               Variant="DrawerVariant.Temporary"
+               Elevation="1"
+               Anchor="Anchor.Start">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Select an Option</MudText>
+        </MudDrawerHeader>
+        <MudDivider DividerType="DividerType.Middle" />
+        <MudNavMenu Color="Color.Primary">
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Girl">Python</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/about" Icon="@Icons.Material.Filled.DocumentScanner">David Neve - CV</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="" Icon="@Icons.Material.Filled.Gamepad">Video Game Development</MudNavLink>
+            <MudDivider DividerType="DividerType.Middle" />
+            <MudNavGroup Title="MOD JHub Scheme Modules">
+                <MudNavLink Match="NavLinkMatch.All" Href="/recognise" Icon="@Icons.Material.Filled.AirplanemodeActive">JHub Module 1a - Basic Web</MudNavLink>
+                <MudNavLink Match="NavLinkMatch.All" Href="/richweb" Icon="@Icons.Material.Filled.ListAlt">JHub Module 1b - Rich Web</MudNavLink>
+            </MudNavGroup>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
             @Body
-        </article>
-    </main>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
