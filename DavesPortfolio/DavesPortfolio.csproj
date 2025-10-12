@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\DavesPortfolio.Client\Components\CareerCard.razor.cs" Link="CareerCard.razor.cs" />
     <Compile Include="..\DavesPortfolio.Client\Components\Mappingbase.razor.cs" Link="Mappingbase.razor.cs" />
     <Compile Include="..\DavesPortfolio.Client\Pages\Counter.razor.cs" Link="Counter.razor.cs" />
     <Compile Include="..\DavesPortfolio.Client\Pages\Recognise.razor.cs" Link="Recognise.razor.cs" />
