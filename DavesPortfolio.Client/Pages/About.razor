@@ -1,4 +1,6 @@
-﻿@page "/about"
+﻿@using DavesPortfolio.Client.Components
+
+@page "/about"
 
 <PageTitle>All about Dave Neve</PageTitle>
 
@@ -127,8 +129,14 @@
 					<MudText>Operational Deployement</MudText>
 				</ItemContent>
 			</MudTimelineItem>
-
-
+			<MudTimelineItem Color="Color.Warning" Size="Size.Medium" Elevation="25">
+				<ItemOpposite>
+					<MudText Color="Color.Error" Typo="Typo.h5">Dec 2025</MudText>
+				</ItemOpposite>
+				<ItemContent>
+					<CareerCard/>
+				</ItemContent>
+			</MudTimelineItem>
 		</MudTimeline>
 	</MudItem>
 </MudGrid>

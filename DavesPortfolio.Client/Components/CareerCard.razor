@@ -1,0 +1,42 @@
+﻿@inject IDialogService DialogService
+
+<MudCard Outlined="true" Elevation="25">
+	<MudCardHeader>
+		<CardHeaderAvatar>
+			<MudIcon Icon="@_careerIcon" Size="Size.Medium"/>
+		</CardHeaderAvatar>
+		<CardHeaderContent>
+			<MudText Typo="Typo.body1">@_careerJobTitle</MudText>
+			<MudText Typo="Typo.body2">@_careerRoleTitle</MudText>
+		</CardHeaderContent>
+		<CardHeaderActions>
+			<MudIconButton Icon="@Icons.Material.Filled.ReadMore" Color="Color.Default" Size="Size.Medium"/>
+		</CardHeaderActions>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudText Typo="Typo.body2">@_careerShortDescription</MudText>
+	</MudCardContent>
+</MudCard>
+
+@code {
+
+	private async Task ViewJob(string title)
+	{
+		var parameters = new DialogParameters
+			{
+
+			};
+		var options = new DialogOptions
+			{
+				CloseButton = true,
+				MaxWidth = MaxWidth.Medium,
+				FullWidth = true
+			};
+	}
+
+	[Parameter] public string? _careerIcon { get; set; } = Icons.Material.Filled.Info;
+	[Parameter] public string? _careerJobTitle { get; set; } = "<<JOB_TITLE>>";
+	[Parameter] public string? _careerRoleTitle { get; set; } = "<<ROLE_TITLE>>";
+	[Parameter] public string? _careerShortDescription { get; set; } = "<<SHORT_DESCRIP>>";
+
+}
