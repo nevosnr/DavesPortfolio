@@ -4,7 +4,7 @@ namespace DavesPortfolio.Models
 {
     public class CareerRecord
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string? careerIcon { get; set; }
 

@@ -5,6 +5,18 @@
 <PageTitle>All about Dave Neve</PageTitle>
 
 <MudText Align="Align.Center" Typo="Typo.h4">Everything You Need to Know About Dave Neve</MudText>
+<MudPaper>
+	<MudText Typo="Typo.body1">
+		What you can see here is a timeline view of my RAF Career to-date. 
+
+		This is build using a code first approach, where Entity Framework (EF) Core is used to create the 
+		database model beofre migrating to the Azure SQL Database. (As this is created on the free tier with arrpoximatly 28 hours per month of 
+		CPU if it doesn't load the DB may be on pause!
+		
+		Using MudBlazer and a component based approach to development, each job entry is populated from the database,
+		the timeline component then iterates through creating each card dynamicaly.)
+	</MudText>
+</MudPaper>
 <MudGrid>
 	<MudItem xs="6">
 		<MudTimeline>

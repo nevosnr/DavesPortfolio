@@ -4,7 +4,7 @@ namespace DavesPortfolio.Client.DTOs.CareerHistory
 {
     public record CareerRecordDTO
     (
-        int _Id,
+        Guid _Id,
         string? _careerIcon,
         string? _careerJobTitle,
         string? _careerRoleTitle,
